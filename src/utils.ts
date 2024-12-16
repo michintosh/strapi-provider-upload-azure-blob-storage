@@ -12,5 +12,8 @@ export function getServiceBaseUrl(config: Config): string {
 }
 
 export function getFileName(defaultPath: string, file: File): string {
-  return `${trimParam(defaultPath)}/${file.hash}${file.ext}`;
+  const trimmedPath = trimParam(defaultPath);
+  return trimmedPath && trimmedPath !== '/' 
+    ? `${trimmedPath}/${file.hash}${file.ext}` 
+    : `${file.hash}${file.ext}`;
 }

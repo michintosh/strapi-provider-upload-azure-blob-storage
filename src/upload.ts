@@ -1,5 +1,3 @@
-// src/upload.ts
-
 import { Config, File } from './types';
 import { BlobServiceClient } from '@azure/storage-blob';
 import { getServiceBaseUrl, getFileName, trimParam } from './utils';
