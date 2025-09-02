@@ -11,7 +11,13 @@ export async function handleDelete(
   const containerClient = blobSvcClient.getContainerClient(trimParam(config.containerName));
   const client = containerClient.getBlobClient(getFileName(config.defaultPath, file));
 
-  await client.delete();
+  try {
+    await client.delete();
+  } catch (err: any) {
+    if (err.code !== 'BlobNotFound') {
+      throw err;
+    }
+  }
 
   const tmpFilePath = file.tmpPath || file.path;
   if (tmpFilePath) {
