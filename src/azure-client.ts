@@ -18,7 +18,7 @@ export function makeBlobServiceClient(config: Config): BlobServiceClient {
   if (sasToken) {
     const anonymousCredential = new AnonymousCredential();
     return new BlobServiceClient(
-      `${serviceBaseURL}${sasToken}`,
+      `${serviceBaseURL}?${sasToken}`,
       anonymousCredential,
     );
   }
