@@ -74,6 +74,7 @@ pnpm add strapi-provider-upload-azure-sa
 | `serviceBaseURL`      | string   | No              |             | Custom base URL for the Azure Blob service (e.g., if using a sovereign cloud).                                                                     |
 | `defaultCacheControl` | string   | No              |             | Set the `Cache-Control` header for uploaded files.                                                                                                 |
 | `removeCN`            | string   | No              |             | Set to `'true'` to remove the container name from the file URL.                                                                                    |
+| `fileSizeLimit`       | number   | No              |             | Maximum allowed file size **in bytes**. Example: `1 * 1000 * 1000` = 1 MB.                                                                        |
 
 
 ### Configure the Provider in Strapi
@@ -97,6 +98,7 @@ module.exports = ({ env }) => ({
         serviceBaseURL: env('AZURE_SERVICE_BASE_URL'),
         defaultCacheControl: env('AZURE_DEFAULT_CACHE_CONTROL'),
         removeCN: env('AZURE_REMOVE_CN'),
+        fileSizeLimit: 1 * 1000 * 1000, // 1 MB in bytes
       },
     },
   },
@@ -194,4 +196,6 @@ module.exports = [
 - **`defaultCacheControl`** (optional): Useful when you want to allow clients to use a cached version of the file. Azure Storage will return this value in the `Cache-Control` HTTP header of the response.
 
 - **`removeCN`** (optional): Some Azure account configurations exclude the 'container name' from the URL where data is saved. By default, it's set to `false`. If you want to remove the container name from the URL, set it to `'true'`.
+
+- **`fileSizeLimit`** (optional): Maximum allowed file size in **bytes**. For example, `1 * 1000 * 1000` equals 1 MB. Files exceeding this limit will be rejected.
 
